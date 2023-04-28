@@ -46,4 +46,4 @@ See also the list of
 
 ## License
 
-This project is licensed under the [MIT license](LICENSE.md) see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the [MIT license](LICENSE) see the [LICENSE](LICENSE) file for details
