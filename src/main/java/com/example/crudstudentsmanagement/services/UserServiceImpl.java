@@ -23,6 +23,12 @@ public class UserServiceImpl implements UserService{
     public UserModel getUserById(Long id) {
         return this.userRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public UserModel getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
     @Override
     public void saveUser(UserModel user) {
         // Encode user pw before save the user in the db

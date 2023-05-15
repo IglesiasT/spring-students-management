@@ -5,5 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
     UserModel getUserById(Long id);
+    UserModel getUserByUsername(String username);
     void saveUser(UserModel user);
 }

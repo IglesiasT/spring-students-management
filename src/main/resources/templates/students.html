@@ -11,14 +11,17 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a>Students management</a>
+            <p>Students management</p>
             <div id="navbarActions" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a th:href="@{'/students/create'}" class="btn btn-primary">Add new student</a></li>
                 </ul>
             </div>
             <div id="navbarUserInfo" class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <p>Welcome, <span th:text="${user.username}"></span>!</p>
+                    </li>
                     <li class="nav-item">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>

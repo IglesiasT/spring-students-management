@@ -1,8 +1,12 @@
 package com.example.crudstudentsmanagement.controllers;
 
 import com.example.crudstudentsmanagement.models.StudentModel;
+import com.example.crudstudentsmanagement.models.UserModel;
 import com.example.crudstudentsmanagement.services.StudentService;
+import com.example.crudstudentsmanagement.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +19,18 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping
-    public String getAllStudents(Model model) { //el objeto de la clase Model se utiliza para pasar datos desde el controlador a la vista en Spring MVC. Al agregar un atributo al modelo usando el método "addAttribute", Spring MVC lo hace disponible para su uso en la plantilla Thymeleaf correspondiente.
+    public String getAllStudents(Model model) {
         List<StudentModel> students = this.studentService.getAllStudents();
         model.addAttribute("students", students);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        UserModel userModel = userService.getUserByUsername(username);
+        model.addAttribute("user", userModel);
 
         return "students";
     }
