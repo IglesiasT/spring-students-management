@@ -9,7 +9,10 @@
 </head>
 <body>
 <div class="container mt-3">
-    <a th:href="@{'/students/create'}" class="btn btn-primary">Add new student</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+    </form>
+    <a th:href="@{'/students/create'}" class="btn btn-primary">Add new student</a> <!--center right-->
     <table class="table table-striped">
         <thead>
         <tr>
