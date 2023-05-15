@@ -25,7 +25,7 @@ You can run this application from your favorite IDE or by running the following 
 
 ## Future features
 These are some features that I plan to add to the project so that it scales little by little and eventually becomes a robust project:
-- [ ] User logout
+- [x] User logout
 - [ ] Success and failure messages
 - [ ] Only admins can make CRUD operations to students
 - [ ] In-page forms
