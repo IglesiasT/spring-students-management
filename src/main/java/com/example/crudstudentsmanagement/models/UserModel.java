@@ -18,14 +18,18 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;    // hacer que sea unico (constraint unique)
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)    // LAZY = fetch when needed, EAGER = fetch immediately
-    @JoinTable(name = "users_authorities",  // nombre de la tabla generada por el join
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),    // name columna nueva tabla, referenced con el nombre de esta columna que quiero joinear
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
     )
-    private List<AuthorityModel> authorities;   // que un usuario tenga varias me permite usar many to many lo que esta bueno pero no tiene mucho sentido ser admin y user al mismo tiempo
+    private List<AuthorityModel> authorities;
 
     public UserModel(String username, String password, List<AuthorityModel> authorities){
         this.username= username;
