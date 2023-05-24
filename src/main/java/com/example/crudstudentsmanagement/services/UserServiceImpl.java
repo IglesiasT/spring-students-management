@@ -5,6 +5,7 @@ import com.example.crudstudentsmanagement.repositories.UserRepository;
 import com.example.crudstudentsmanagement.security.UserSecurity;
 import com.example.crudstudentsmanagement.utils.exceptions.EmptyUsernameException;
 import com.example.crudstudentsmanagement.utils.exceptions.EmptyPasswordException;
+import com.example.crudstudentsmanagement.utils.exceptions.EmptyAuthoritiesException;
 import com.example.crudstudentsmanagement.utils.exceptions.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +43,11 @@ public class UserServiceImpl implements UserService{
         // Check if password is empty
         if(user.getPassword().isBlank()){
             throw new EmptyPasswordException("Password can't be empty");
+        }
+
+        // Check if authorities is empty
+        if(user.getAuthorities().isEmpty()){
+            throw new EmptyAuthoritiesException("User must have at least 1 authority");
         }
 
         // Check if user is already registered

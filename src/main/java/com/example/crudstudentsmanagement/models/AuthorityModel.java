@@ -16,10 +16,19 @@ public class AuthorityModel {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true, nullable = false)
     private AuthorityName name;
 
     public AuthorityModel(AuthorityName name){
         this.name = name;
+    }
+
+    public static AuthorityModel Admin(){
+        return new AuthorityModel(AuthorityName.ADMIN);
+    }
+
+    public static AuthorityModel Student() {
+        return new AuthorityModel(AuthorityName.STUDENT);
     }
 
     public Long getId() {
