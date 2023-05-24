@@ -3,6 +3,8 @@ package com.example.crudstudentsmanagement.services;
 import com.example.crudstudentsmanagement.models.UserModel;
 import com.example.crudstudentsmanagement.repositories.UserRepository;
 import com.example.crudstudentsmanagement.security.UserSecurity;
+import com.example.crudstudentsmanagement.utils.exceptions.EmptyUsernameException;
+import com.example.crudstudentsmanagement.utils.exceptions.EmptyPasswordException;
 import com.example.crudstudentsmanagement.utils.exceptions.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +34,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void saveUser(UserModel user) throws UserAlreadyExistsException {
+        // Check if username is empty
+        if(user.getUsername().isBlank()){
+            throw new EmptyUsernameException("Username can't be empty");
+        }
+
+        // Check if password is empty
+        if(user.getPassword().isBlank()){
+            throw new EmptyPasswordException("Password can't be empty");
+        }
+
         // Check if user is already registered
         if(this.userRepository.findByUsername(user.getUsername()) != null){
             throw new UserAlreadyExistsException("User already exists for this username");
