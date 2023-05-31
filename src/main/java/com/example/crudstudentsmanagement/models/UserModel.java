@@ -1,6 +1,7 @@
 package com.example.crudstudentsmanagement.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +19,11 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique=true)
+    @NotBlank(message = "Username can not be empty")
     private String username;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Password can not be empty")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

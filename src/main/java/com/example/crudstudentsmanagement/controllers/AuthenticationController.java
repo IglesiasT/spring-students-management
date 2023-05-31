@@ -5,13 +5,14 @@ import com.example.crudstudentsmanagement.models.UserModel;
 import com.example.crudstudentsmanagement.services.AuthorityService;
 import com.example.crudstudentsmanagement.services.UserService;
 import com.example.crudstudentsmanagement.utils.exceptions.UserAlreadyExistsException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -37,16 +38,20 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    public String signUpUser(@ModelAttribute("user") UserModel user, RedirectAttributes redirectAttributes){
+    public String signUpUser(@Valid @ModelAttribute("user") UserModel user, BindingResult result, Model model){
+        List<AuthorityModel> authorities = authorityService.getAllPossibleAuthorities();
+        model.addAttribute("authorityTypes", authorities);
+
+        if (result.hasErrors()) {
+            return "sign-up";
+        }
         try {
             this.userService.saveUser(user);
         } catch (UserAlreadyExistsException e){
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/sign-up";
+            result.rejectValue("username", "error.username", e.getMessage());
+            return "sign-up";
         }
 
-        // Show successful sign up
-        redirectAttributes.addFlashAttribute("success", "Thank you for signing up");
         return "redirect:/login";
     }
 }

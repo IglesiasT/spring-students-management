@@ -10,31 +10,31 @@
   <div class="h-100 d-flex align-items-center justify-content-center">
     <form th:action="@{/sign-up}" th:object="${user}" method="post">
       <input type="hidden" th:field="*{id}" />
-      <!-- Success message -->
-      <div th:if="${success}" class="alert alert-success" role="alert">
-        <p th:text="${success}"></p>
-      </div>
 
-      <!-- Error message -->
-      <div th:if="${error}" class="alert alert-danger" role="alert">
-        <p th:text="${error}"></p>
-      </div>
+      <!-- Form fields -->
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" th:field="*{username}"/>
+        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></small>
       </div>
+
       <div>
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" th:field="*{password}"/>
+        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></small>
       </div>
+
       <div th:each="authority : ${authorityTypes}">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" th:id="${authority.getName()}" th:field="*{authorities}" th:value="${authority.getId()}" th:name="'authorities_' + ${authority.getName()}">
           <label class="form-check-label" th:for="${authority.getName()}" th:text="${authority.getName()}"></label>
         </div>
       </div>
+
+      <!-- Action buttons -->
       <a th:href="@{'/login'}" class="btn btn-danger mr-2">Cancel</a>
       <button type="submit" class="btn btn-primary">Sign Up</button>
+
     </form>
   </div>
 </body>
