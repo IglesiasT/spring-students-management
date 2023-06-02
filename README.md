@@ -13,7 +13,7 @@ This is a simple web application that follows the Representational State Transfe
 
 - Spring Security
 - Spring Web
-- Spring Data JDBC
+- Spring Data JPA
 - Thymeleaf
 - MySQL Database
 
@@ -28,7 +28,6 @@ These are some features that I plan to add to the project so that it scales litt
 - [x] User logout
 - [x] Success and failure messages
 - [ ] Only admins can make CRUD operations to students
-- [ ] In-page forms
 
 And more
 
